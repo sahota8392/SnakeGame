@@ -1,0 +1,42 @@
+#game{
+    box-shadow: black 20px 20px 50px;
+    border: 3px solid black;
+}
+
+h4 {
+    margin-left: 20px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'American Typewriter', 'sans-serif';
+    background-color: #eeffef;
+}
+
+.restart {
+    padding: 15px;
+    margin-top: 50px;
+    font-family: 'American Typewriter', 'sans-serif';
+    font-size: 20px;
+    text-transform: uppercase;
+    background-color: #96AB98;
+    border: 4px solid black;
+}
+
+.jumbotron {
+    background-size: 100% 100%;
+    background-color: #002A53;
+    color:white;
+    margin-bottom: 0;
+    font-family: 'futura pt';
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#canvasArea {
+    text-align: center;
+    font-family: 'American Typewriter', 'sans-serif';
+    text-transform: uppercase;
+
+}

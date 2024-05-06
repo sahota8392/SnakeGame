@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../style.css"/>
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="SnakeGame.css"/>
+    
+    
+</head>
+
+<body>
+    <header class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-sm-3 col-md-2 align self-center">
+                </div>
+                <div class="col">
+                    <h1>EZ Games</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div clas ="container" id="canvasArea">
+    <h1>Snake Game</h1>
+    <canvas id=game width="400" height="400"></canvas>
+    <h4 style="text-align:left">INSTRUCTIONS</h4>
+        <ol type="1" style="text-align: left">
+            <li>Up, Down, Left, Right move the 'red' snake.</li>
+            <li>When you 'eat' the white square, your snake will grow by 1 square </li>
+            <li>Reaching the edge of the square results in the game over </li>
+            <li>Speed of the snake will increase as your snake grows and your score increases </li>
+            <li>Click the Restart Game button below to restart </li>
+        </ol>
+
+<div class="row"></div>
+    <script src="SnakeGame.js"></script>
+    <input type="button" class="restart" value="Restart Game" onClick="window.location.reload()"></input>
+</div>
+</body>
+</html>
