@@ -10,13 +10,13 @@ h4 {
 body {
     margin: 0px;
     padding: 0px;
+    font-size: 10px;
     font-family: 'American Typewriter', 'sans-serif';
     background-color: #eeffef;
 }
 
 .restart {
-    padding: 15px;
-    margin-top: 50px;
+    padding: 10px;
     font-family: 'American Typewriter', 'sans-serif';
     font-size: 20px;
     text-transform: uppercase;

@@ -62,6 +62,7 @@ function drawGame(){
     drawSnake();
 
     drawScore();
+    settings();
 
     if(score >2){
         speed = 10;
@@ -142,7 +143,13 @@ function isGameOver(){
 function drawScore() {
     ctx.fillStyle="white";
     ctx.font= "10px Verdana";
-    ctx.fillText ("Score " + score, canvas.width - 50, 10);
+    ctx.fillText ("Score " + score, canvas.width - 100, 10);
+}
+
+function settings() {
+    ctx.fillStyle="white";
+    ctx.font= "10px Verdana";
+    ctx.fillText ("Settings ", canvas.width - 50, 10);
 }
 
 function clearScreen() {  //styles below are way to give style without CSS
