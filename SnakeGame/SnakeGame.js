@@ -244,4 +244,23 @@ function keyDown(event) {
         xVelocity = -1;          
     }
 }
+
+function minInstructions() {
+    const instructions = document.getElementById('instructions');
+    const button = document.querySelector('.minimize-button');
+    if (instructions.classList.contains('hidden')) {
+        instructions.classList.remove('hidden');
+        button.textContent = '[-]';
+    } else {
+        instructions.classList.add('hidden');
+        button.textContent = '[+]';
+    }
+}
+
+// Initially hide the instructions
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('instructions').classList.add('hidden');
+    document.querySelector('.minimize-button').textContent = '[+]';
+});
+
 drawGame();

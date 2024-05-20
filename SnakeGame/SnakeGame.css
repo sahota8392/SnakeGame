@@ -15,6 +15,15 @@ body {
     background-color: #eeffef;
 }
 
+.minimize-button {
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+.hidden {
+    display: none;
+}
+
 .restart {
     padding: 10px;
     font-family: 'American Typewriter', 'sans-serif';
@@ -38,5 +47,4 @@ body {
     text-align: center;
     font-family: 'American Typewriter', 'sans-serif';
     text-transform: uppercase;
-
 }
