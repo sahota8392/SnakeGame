@@ -12,41 +12,26 @@ class SnakePart {
 
 //if you open console on browser and see drawgame there, it will show the speed 
 let speed = 7;  
-
 let tileCount = 20;                            //saying 20 tiles in the canvas across down
 let tileSize = (canvas.width/tileCount)-5;    //size of the snake compared to the tiles, reducing it further by 5
-
-
 let headX = 10;         //positioning the head of the snake with tileCount we set - 10 across 
 let headY = 10;         //position the end of snake - 10 down
 const snakeParts = [];  //we modify contents only so we use CONST
 let tailLength = 0;     //beginning length of the tail
-
 //setting position of the "apple" you will eat with snake
 let appleX = 5;         
 let appleY = 5;
-
-
 //these are variables to move the snake, values change based on arrows
 let xVelocity=0;  
 let yVelocity=0;
-
 let score = 0;
+let appleColor = 'white';   //default apple color
 
 //sound to make when you eat apple and GameOver Sound
 const HissSound = new Audio("SnakeHiss.mp3");
 const GameOverMario = new Audio("GameOverMario.mp3");
 
 
-/* Order of functions in drawGame:
-    1. is game over?
-    2. clear the screen
-    3. function if we eat the apple
-    4. draw the apple and the snake
-    5. keep the score
-    6. speed increases based on score level
-    7.setTimeout will rerun the draw game and update the speed based on the scores and speed we set
-*/
 function drawGame(){
     changeSnakePosition();
     let result = isGameOver();
@@ -56,30 +41,24 @@ function drawGame(){
 
     console.log('draw game');     //during creation, seeing the speed increase
     clearScreen();
-
     checkAppleCollison();
     drawApple();
     drawSnake();
-
     drawScore();
     settings();
 
     if(score >2){
         speed = 10;
     }
-
     if(score>10){
         speed = 14;
     }
-
     if(score > 30){
         speed= 17;
     }
-
     if(score >50){
         speed = 25;
     }
-    
     setTimeout(drawGame, 1000/speed);
 }
 
@@ -101,15 +80,12 @@ function isGameOver(){
     if(headX < 0){                              //left wall, 0 is the index in the tiles basically, same as below
         gameOver = true;
     }
-
     else if(headX === tileCount){               //right wall
         gameOver = true;
     }
-
     else if(headY < 0){                         //top wall
         gameOver = true;
     }
-
     else if(headY === tileCount){               //bottom wall
         gameOver = true;
     }
@@ -195,7 +171,7 @@ document.addEventListener('keydown', keyDown);
 
 //the apple snake will eat, color and the location and size of it
 function drawApple(){
-    ctx.fillStyle='white';
+    ctx.fillStyle = appleColor;   //will update appleColor when apple is eaten
     ctx.fillRect((appleX * tileCount), (appleY * tileCount), tileSize, tileSize);
 }
 
@@ -206,7 +182,29 @@ function checkAppleCollison(){
         appleY = Math.floor(Math.random() * tileCount);
         tailLength++;
         score++;
-        HissSound.play();  //plays the sound after taillength and score udpate
+        HissSound.play();       //plays the sound after taillength and score update
+        fetchNewAppleColor();   //calls apple microservice changing color of apple when eaten
+    }
+}
+
+//fetch new apple color when eaten from 'apple_microservice.py' created by team member
+async function fetchNewAppleColor() {
+    try {
+        const response = await fetch('http://localhost:5555/apple_eaten', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+        if(data && data.color) {
+            appleColor = data.color;        //pre-change color
+        } else {
+            console.error('No color update from server, ERROR');
+        }
+    } catch(error) {
+        console.error('Error fetching new apple color', error);
     }
 }
 
