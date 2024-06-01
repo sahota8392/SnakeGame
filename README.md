@@ -8,8 +8,8 @@ How to Run the Game:
 4. Microservice C (keep track of the highest score; NODE; node micro_c.js to run)
 5. Microservice D (user can change color of the snake)
 
-PORTS
-micro_a = 5555
-micro_b = 4500
-micro_c = 3500
+PORTS<br>
+micro_a = 5555<br>
+micro_b = 4500<br>
+micro_c = 3500<br>
 micro_d = pending
