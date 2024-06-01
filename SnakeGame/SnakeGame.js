@@ -25,14 +25,51 @@ let appleY = 5;
 let xVelocity=0;  
 let yVelocity=0;
 let score = 0;
-let appleColor = 'white';   //default apple color
+let appleColor = 'white';   //default apple color (micro A)
+let isPaused = false;       //pause-resume (micro B)
+
+
+document.addEventListener('keydown', keyDown);  //starts the game from pressing the arrow key to move Snake
+document.addEventListener('keydown', togglePauseResume);
 
 //sound to make when you eat apple and GameOver Sound
 const HissSound = new Audio("SnakeHiss.mp3");
 const GameOverMario = new Audio("GameOver.mp3");
 
+//Pause-Resume
+async function togglePauseResume(event) {
+    if (event.keyCode == 32) {
+        try {
+            const response = await fetch('http://localhost:4500/pause-resume', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            isPaused = data.isPaused;
+        } catch (error) {
+            console.error('Error in pause/resume', error);
+        }
+    }
+}
+
+async function fetchPauseResumeStatus() {
+    try {
+        const response = await fetch('http://localhost:4500/status');
+        const data = await response.json();
+        isPaused = data.isPaused;
+    } catch(error) {
+        console.error('Error fetching status for pause/resume', error)
+    }
+}
 
 function drawGame(){
+    if(isPaused){
+        setTimeout(drawGame, 1000/speed);
+        return;
+    }
+
     changeSnakePosition();
     let result = isGameOver();
     if(result){
@@ -60,11 +97,6 @@ function drawGame(){
     }
     setTimeout(drawGame, 1000/speed);
 }
-
-//One of three can be used to update the Snake as game goes
-//request Animation Frame
-//setInterval xtimes per second
-//setTimeOut --what we used
 
 //gameOver defaulted to false saying game is not over or not true
 function isGameOver(){
@@ -153,14 +185,11 @@ function drawSnake() {
 }
 
 
-
 function changeSnakePosition() {
 //will change the head position
     headX = headX + xVelocity;  
     headY = headY + yVelocity;
 }
-
-document.addEventListener('keydown', keyDown);
 
 //the apple snake will eat, color and the location and size of it
 function drawApple(){
@@ -201,7 +230,7 @@ async function fetchNewAppleColor() {
     }
 }
 
-//these event keycodes entered can be found online
+//https://www.toptal.com/developers/keycode    keycodes for each key on keyboard
 function keyDown(event) {  
 //up arrow
     if(event.keyCode == 38){ 
