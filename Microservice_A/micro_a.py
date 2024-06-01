@@ -1,3 +1,5 @@
+#Microservice A - Apple color changes after each consumption
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import random
