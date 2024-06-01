@@ -3,7 +3,13 @@
 
 How to Run the Game:
 1. Open SnakeGame.html with liveserver
-2. Run the Microservice A (apple changes color after consumption)
-3. Run the Microservice B (user can pause and resume game with spacebar)
-4. Run the Microservice C (user can toggle sound on and off from icon)
-5. Run the Microservice D (user can change color of the snake)
+2. Microservice A (apple changes color after consumption; FLASK; python micro_a.py to run)
+3. Microservice B (user can pause and resume game with spacebar; NODE; node micro_b.js to run)
+4. Microservice C (keep track of the highest score; NODE; node micro_c.js to run)
+5. Microservice D (user can change color of the snake)
+
+PORTS
+micro_a = 5555
+micro_b = 4500
+micro_c = 3500
+micro_d = pending
