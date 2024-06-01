@@ -30,11 +30,14 @@
     <h1>Snake Game</h1>
     <canvas id=game width="400" height="400"></canvas>
 
+    <div class="row"></div>
+        <input type="button" class="restart" value="Restart Game" onClick="window.location.reload()"></input>
+    </div>
+
     <h4 style="text-align:left">
         INSTRUCTIONS
         <span class="minimize-button" onclick="minInstructions()">[-]</span>
     </h4>
-
     <ol id="instructions" type="1" style="text-align: left">
         <li>Up, Down, Left, Right move the 'red' snake.</li>
         <li>When you 'eat' the white square, your snake will grow by 1 square </li>
@@ -42,10 +45,6 @@
         <li>Speed of the snake will increase as your snake grows and your score increases </li>
         <li>Click the Restart Game button below to restart </li>
     </ol>
-
-    <div class="row"></div>
-        <input type="button" class="restart" value="Restart Game" onClick="window.location.reload()"></input>
-    </div>
 
     <script src="SnakeGame.js"></script>
 </body>
