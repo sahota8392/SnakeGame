@@ -26,7 +26,7 @@
         </div>
     </header>
 
-<div clas ="container" id="canvasArea">
+<div class ="container" id="canvasArea">
     <h1>Snake Game</h1>
     <canvas id=game width="400" height="400"></canvas>
 
@@ -37,15 +37,17 @@
     <h4 style="text-align:left">
         INSTRUCTIONS
         <span class="minimize-button" onclick="minInstructions()">[-]</span>
+        <ol id="instructions" type="1" style="text-align: left">
+            <li>Up, Down, Left, Right move the 'red' snake.</li>
+            <li>When you 'eat' the white square(apple color changes after eating), your snake will grow by 1 square </li>
+            <li>Reaching the edge of the square results in the game over </li>
+            <li>Speed of the snake will increase as your snake grows and your score increases </li>
+            <li>Press 'SPACEBAR' to pause and unpause the game</li>
+            <li>Click the Restart Game button below to restart </li>
+        </ol>
     </h4>
-    <ol id="instructions" type="1" style="text-align: left">
-        <li>Up, Down, Left, Right move the 'red' snake.</li>
-        <li>When you 'eat' the white square, your snake will grow by 1 square </li>
-        <li>Reaching the edge of the square results in the game over </li>
-        <li>Speed of the snake will increase as your snake grows and your score increases </li>
-        <li>Click the Restart Game button below to restart </li>
-    </ol>
 
+    
     <script src="SnakeGame.js"></script>
 </body>
 </html>

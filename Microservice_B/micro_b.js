@@ -23,5 +23,3 @@ app.get('/status', (req, res) => {
 app.listen(port, () => {
     console.log(`Microservice B for pause/resume is listening on port ${port}`);
 });
-
-

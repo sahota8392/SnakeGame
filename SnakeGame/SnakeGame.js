@@ -34,7 +34,7 @@ document.addEventListener('keydown', togglePauseResume);
 
 //sound to make when you eat apple and GameOver Sound
 const HissSound = new Audio("SnakeHiss.mp3");
-const GameOverMario = new Audio("GameOver.mp3");
+const GameOver = new Audio("GameOver.mp3");
 
 //Pause-Resume
 async function togglePauseResume(event) {
@@ -131,7 +131,7 @@ function isGameOver(){
     }
 //if game is over, show this message and play this sound
     if(gameOver) {
-        GameOverMario.play();
+        GameOver.play();
         ctx.fillStyle = "white";
         ctx.font ="70px Impact";
 
@@ -141,7 +141,6 @@ function isGameOver(){
         gradient.addColorStop("0.5", "yellow");
         gradient.addColorStop("1", "yellowgreen");
         ctx.fillStyle=gradient;
-
         ctx.fillText("Game Over!", canvas.width/12, canvas.height/2);
     }
     return gameOver;
