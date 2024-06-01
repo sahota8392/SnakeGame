@@ -27,10 +27,26 @@ let yVelocity=0;
 let score = 0;
 let appleColor = 'white';   //default apple color (micro A)
 let isPaused = false;       //pause-resume (micro B)
+let highscore = 0;          //highest score (micro C)
 
 
-document.addEventListener('keydown', keyDown);  //starts the game from pressing the arrow key to move Snake
-document.addEventListener('keydown', togglePauseResume);
+document.addEventListener('keydown', keyDown);              //arrow keys start the game moving snake
+document.addEventListener('keydown', togglePauseResume);    //pause and resume
+document.addEventListener('DOMContentLoaded', () => {fetchHighScore();});   //highest score updates
+
+//highest Score
+async function fetchHighScore() {
+    try {
+        const response = await fetch('http://localhost:3500/highscore');
+        const data = await response.json();
+        highscore = data.highscore;
+        document.getElementById("highscore").innerText = highscore;
+    } catch (error) {
+        console.error('Error fetching high score', error);
+    }
+}
+
+fetchHighScore();
 
 //sound to make when you eat apple and GameOver Sound
 const HissSound = new Audio("SnakeHiss.mp3");
@@ -51,6 +67,20 @@ async function togglePauseResume(event) {
         } catch (error) {
             console.error('Error in pause/resume', error);
         }
+    }
+}
+
+async function updateHighScoreOnServer(newHighScore) {
+    try {
+        await fetch('http://localhost:3500/highscore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ score: newHighScore })
+        });
+    } catch (error) {
+        console.error('Error updating high score', error);
     }
 }
 
@@ -203,6 +233,11 @@ function checkAppleCollison(){
         appleY = Math.floor(Math.random() * tileCount);
         tailLength++;
         score++;
+        if(score > highscore){     //highest score, localStorage updates if score is higher
+            highscore = score;
+            localStorage.setItem("score", highscore);  
+            updateHighScoreOnServer(highscore);   
+        }
         HissSound.play();       //plays the sound after taillength and score update
         fetchNewAppleColor();   //calls apple microservice changing color of apple when eaten
     }
