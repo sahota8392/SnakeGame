@@ -6,10 +6,10 @@ How to Run the Game:
 2. Microservice A (apple changes color after consumption; FLASK; python micro_a.py to run)
 3. Microservice B (user can pause and resume game with spacebar; NODE; node micro_b.js to run)
 4. Microservice C (keep track of the highest score; NODE; node micro_c.js to run)
-5. Microservice D (user can change color of the snake)
+5. Microservice D (audio for apple consumption & game over; FLASK; python micro_d.py to run)
 
-PORTS<br>
+PORTS on localhost<br>
 micro_a = 5555<br>
 micro_b = 4500<br>
 micro_c = 3500<br>
-micro_d = pending
+micro_d = 2500
