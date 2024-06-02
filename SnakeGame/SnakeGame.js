@@ -34,6 +34,46 @@ document.addEventListener('keydown', keyDown);              //arrow keys start t
 document.addEventListener('keydown', togglePauseResume);    //pause and resume
 document.addEventListener('DOMContentLoaded', () => {fetchHighScore();});   //highest score updates
 
+//Audio for SnakeHiss
+async function playHiss() {
+    try {
+        console.log('Requesting to play hiss sound');
+        const response = await fetch('http://localhost:2500/play_hiss', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            console.error('Error playing sound');
+        } else {
+            console.log('Hiss sound should be playing');
+        }
+    } catch (error) {
+        console.error('Error calling play hiss microservice', error);
+    }
+}
+
+//Audio for GameOver
+async function playGameOver() {
+    try {
+        console.log('Requesting to play GAMEOVER sound');
+        const response = await fetch('http://localhost:2500/play_gameOver', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            console.error('Error playing sound');
+        } else {
+            console.log('GAME OVER should be playing');
+        }
+    } catch (error) {
+        console.error('Error calling play GAME OVER microservice', error);
+    }
+}
+
 //highest Score
 async function fetchHighScore() {
     try {
@@ -46,11 +86,21 @@ async function fetchHighScore() {
     }
 }
 
-fetchHighScore();
+async function updateHighScoreOnServer(newHighScore) {
+    try {
+        await fetch('http://localhost:3500/highscore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ score: newHighScore })
+        });
+    } catch (error) {
+        console.error('Error updating high score', error);
+    }
+}
 
-//sound to make when you eat apple and GameOver Sound
-const HissSound = new Audio("SnakeHiss.mp3");
-const GameOver = new Audio("GameOver.mp3");
+fetchHighScore();
 
 //Pause-Resume
 async function togglePauseResume(event) {
@@ -67,20 +117,6 @@ async function togglePauseResume(event) {
         } catch (error) {
             console.error('Error in pause/resume', error);
         }
-    }
-}
-
-async function updateHighScoreOnServer(newHighScore) {
-    try {
-        await fetch('http://localhost:3500/highscore', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ score: newHighScore })
-        });
-    } catch (error) {
-        console.error('Error updating high score', error);
     }
 }
 
@@ -161,7 +197,7 @@ function isGameOver(){
     }
 //if game is over, show this message and play this sound
     if(gameOver) {
-        GameOver.play();
+        playGameOver();
         ctx.fillStyle = "white";
         ctx.font ="70px Impact";
 
@@ -238,7 +274,7 @@ function checkAppleCollison(){
             localStorage.setItem("score", highscore);  
             updateHighScoreOnServer(highscore);   
         }
-        HissSound.play();       //plays the sound after taillength and score update
+        playHiss();
         fetchNewAppleColor();   //calls apple microservice changing color of apple when eaten
     }
 }

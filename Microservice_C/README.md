@@ -1,0 +1,1 @@
+Microservice C - LocalStorage used to keep track of the highest score user has obtained
