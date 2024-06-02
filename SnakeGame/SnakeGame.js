@@ -74,7 +74,7 @@ async function playGameOver() {
     }
 }
 
-//highest Score
+//Highest Score
 async function fetchHighScore() {
     try {
         const response = await fetch('http://localhost:3500/highscore');
@@ -127,6 +127,27 @@ async function fetchPauseResumeStatus() {
         isPaused = data.isPaused;
     } catch(error) {
         console.error('Error fetching status for pause/resume', error)
+    }
+}
+
+//Apple color changes
+async function fetchNewAppleColor() {
+    try {
+        const response = await fetch('http://localhost:5555/apple_eaten', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+        if(data && data.color) {
+            appleColor = data.color;        //pre-change color
+        } else {
+            console.error('No color update from server, ERROR');
+        }
+    } catch(error) {
+        console.error('Error fetching new apple color', error);
     }
 }
 
@@ -276,27 +297,6 @@ function checkAppleCollison(){
         }
         playHiss();
         fetchNewAppleColor();   //calls apple microservice changing color of apple when eaten
-    }
-}
-
-//fetch new apple color when eaten from 'apple_microservice.py' created by team member
-async function fetchNewAppleColor() {
-    try {
-        const response = await fetch('http://localhost:5555/apple_eaten', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const data = await response.json();
-        if(data && data.color) {
-            appleColor = data.color;        //pre-change color
-        } else {
-            console.error('No color update from server, ERROR');
-        }
-    } catch(error) {
-        console.error('Error fetching new apple color', error);
     }
 }
 
